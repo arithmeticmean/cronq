@@ -18,14 +18,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Rust
-        uses: actions/setup-rust@v1
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
         with:
-          rust-version: stable
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
 
-      - name: Build Client 
+      - name: Build Client
         run: cargo build --verbose
 
       - name: Run Rust tests
         run: cargo test --verbose
-
